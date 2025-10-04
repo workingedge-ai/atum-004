@@ -98,66 +98,66 @@ const Index = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="gradient-hero min-h-[90vh] flex items-center justify-center px-4 py-0 relative overflow-hidden" id="home">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
-          <h1 className="text-5xl md:text-7xl font-bold text-primary-foreground leading-tight">
+      <section className="gradient-hero min-h-[90vh] flex items-center justify-center px-4 py-20 md:py-0 relative overflow-hidden" id="home">
+        <div className="max-w-4xl mx-auto text-center space-y-6 md:space-y-8">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-primary-foreground leading-tight">
             Earn by Selling
             <span className="block text-secondary"> Digital Tools</span>
             to Local Businesses
           </h1>
-          <p className="text-xl md:text-2xl text-secondary max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl md:text-2xl text-secondary max-w-2xl mx-auto px-4">
             No investment needed. Pick ready-made templates, show them to vendors, close sales, and earn generous commissions.
           </p>
           <Link to="/signup">
-            <Button size="lg" className="text-lg px-8 py-6 shadow-glow hover:scale-105 transition-transform my-[30px]">
-              Get Started <ArrowRight className="ml-2 h-5 w-5" />
+            <Button size="lg" className="text-base md:text-lg px-6 md:px-8 py-5 md:py-6 shadow-glow hover:scale-105 transition-transform my-[30px]">
+              Get Started <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
             </Button>
           </Link>
         </div>
       </section>
 
       {/* Overview Section */}
-      <section className="py-20 px-4 bg-card">
+      <section className="py-16 md:py-20 px-4 bg-card">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12 text-secondary">How Atum Works</h2>
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="text-center space-y-4">
-              <div className="mx-auto w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
-                <Package className="h-8 w-8 text-primary" />
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 text-secondary">How Atum Works</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            <div className="text-center space-y-3 md:space-y-4">
+              <div className="mx-auto w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary/20 flex items-center justify-center">
+                <Package className="h-7 w-7 md:h-8 md:w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold">1. Pick Templates</h3>
-              <p className="text-muted-foreground">Choose from our catalogue of ready-made business tools</p>
+              <h3 className="text-lg md:text-xl font-semibold">1. Pick Templates</h3>
+              <p className="text-sm md:text-base text-muted-foreground">Choose from our catalogue of ready-made business tools</p>
             </div>
-            <div className="text-center space-y-4">
-              <div className="mx-auto w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
-                <Users className="h-8 w-8 text-primary" />
+            <div className="text-center space-y-3 md:space-y-4">
+              <div className="mx-auto w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary/20 flex items-center justify-center">
+                <Users className="h-7 w-7 md:h-8 md:w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold">2. Show Vendors</h3>
-              <p className="text-muted-foreground">Present solutions to local businesses in your area</p>
+              <h3 className="text-lg md:text-xl font-semibold">2. Show Vendors</h3>
+              <p className="text-sm md:text-base text-muted-foreground">Present solutions to local businesses in your area</p>
             </div>
-            <div className="text-center space-y-4">
-              <div className="mx-auto w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
-                <CheckCircle className="h-8 w-8 text-primary" />
+            <div className="text-center space-y-3 md:space-y-4">
+              <div className="mx-auto w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary/20 flex items-center justify-center">
+                <CheckCircle className="h-7 w-7 md:h-8 md:w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold">3. Close Sales</h3>
-              <p className="text-muted-foreground">Help businesses get set up with the perfect tool</p>
+              <h3 className="text-lg md:text-xl font-semibold">3. Close Sales</h3>
+              <p className="text-sm md:text-base text-muted-foreground">Help businesses get set up with the perfect tool</p>
             </div>
-            <div className="text-center space-y-4">
-              <div className="mx-auto w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
-                <DollarSign className="h-8 w-8 text-primary" />
+            <div className="text-center space-y-3 md:space-y-4">
+              <div className="mx-auto w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary/20 flex items-center justify-center">
+                <DollarSign className="h-7 w-7 md:h-8 md:w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold">4. Earn Commission</h3>
-              <p className="text-muted-foreground">Get paid directly to your UPI within 24 hours</p>
+              <h3 className="text-lg md:text-xl font-semibold">4. Earn Commission</h3>
+              <p className="text-sm md:text-base text-muted-foreground">Get paid directly to your UPI within 24 hours</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Template Cards */}
-      <section className="py-20 px-4" id="templates">
+      <section className="py-16 md:py-20 px-4" id="templates">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">Popular Templates</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">Popular Templates</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {templates.map(template => <Link key={template.id} to="/signup">
                 <Card className="gradient-card shadow-card hover:shadow-glow transition-all hover:scale-105 cursor-pointer box-border h-full flex flex-col overflow-hidden">
                   <div className="w-full h-48 overflow-hidden">
@@ -188,16 +188,16 @@ const Index = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 px-4 bg-card" id="faq">
+      <section className="py-16 md:py-20 px-4 bg-card" id="faq">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">Frequently Asked Questions</h2>
-          <Accordion type="single" collapsible className="space-y-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">Frequently Asked Questions</h2>
+          <Accordion type="single" collapsible className="space-y-3 md:space-y-4">
             {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="gradient-card shadow-card border border-border rounded-lg px-6">
-                <AccordionTrigger className="text-lg font-semibold text-foreground hover:text-primary">
+              <AccordionItem key={index} value={`item-${index}`} className="gradient-card shadow-card border border-border rounded-lg px-4 md:px-6">
+                <AccordionTrigger className="text-base md:text-lg font-semibold text-foreground hover:text-primary text-left">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
+                <AccordionContent className="text-sm md:text-base text-muted-foreground">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -207,15 +207,15 @@ const Index = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 px-4 bg-card" id="testimonials">
+      <section className="py-16 md:py-20 px-4 bg-card" id="testimonials">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12 text-secondary">Success Stories</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => <Card key={index} className="gradient-card shadow-card p-6 border-border">
-                <p className="text-foreground mb-4 italic">"{testimonial.text}"</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 text-secondary">Success Stories</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {testimonials.map((testimonial, index) => <Card key={index} className="gradient-card shadow-card p-5 md:p-6 border-border">
+                <p className="text-sm md:text-base text-foreground mb-3 md:mb-4 italic">"{testimonial.text}"</p>
                 <div>
-                  <p className="font-semibold">{testimonial.name}</p>
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                  <p className="font-semibold text-sm md:text-base">{testimonial.name}</p>
+                  <p className="text-xs md:text-sm text-muted-foreground">{testimonial.role}</p>
                 </div>
               </Card>)}
           </div>
@@ -223,18 +223,18 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-4 border-t border-border">
+      <footer className="py-10 md:py-12 px-4 border-t border-border">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-2xl font-bold text-primary">Atum</div>
-            <div className="flex gap-6">
-              <Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors">FAQ</Link>
-              <Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</Link>
-              <Link to="/terms" className="text-muted-foreground hover:text-foreground transition-colors">Terms</Link>
-              <Link to="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">Privacy</Link>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
+            <div className="text-xl md:text-2xl font-bold text-primary">Atum</div>
+            <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+              <Link to="/contact" className="text-sm md:text-base text-muted-foreground hover:text-foreground transition-colors">FAQ</Link>
+              <Link to="/contact" className="text-sm md:text-base text-muted-foreground hover:text-foreground transition-colors">Contact</Link>
+              <Link to="/terms" className="text-sm md:text-base text-muted-foreground hover:text-foreground transition-colors">Terms</Link>
+              <Link to="/privacy" className="text-sm md:text-base text-muted-foreground hover:text-foreground transition-colors">Privacy</Link>
             </div>
           </div>
-          <div className="text-center mt-8 text-muted-foreground text-sm">
+          <div className="text-center mt-6 md:mt-8 text-muted-foreground text-xs md:text-sm">
             © 2025 Atum. All rights reserved.
           </div>
         </div>

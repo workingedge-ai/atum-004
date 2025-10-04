@@ -164,35 +164,35 @@ const TemplateDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
-        {/* Header */}
-        <div className="mb-6 animate-fade-in">
-          <Button variant="ghost" onClick={() => navigate("/dashboard")} className="mb-4">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Catalogue
-          </Button>
-
-          <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-            <div>
-              <h1 className="text-3xl md:text-4xl font-bold mb-2">{template.name}</h1>
-              <div className="flex items-center gap-3 flex-wrap">
-                <Badge variant="secondary" className="text-lg px-3 py-1">
-                  ₹{template.price.toLocaleString()}
-                </Badge>
-                <Badge className="text-lg px-3 py-1 bg-primary/20 text-primary border-primary">
-                  You earn ₹{template.commission.toLocaleString()} per sale
-                </Badge>
-              </div>
-            </div>
-            <Button
-              size="lg"
-              onClick={() => window.open(template.demoUrl, "_blank")}
-              className="shadow-glow"
-            >
-              <ExternalLink className="mr-2 h-5 w-5" />
-              View Demo
+          {/* Header */}
+          <div className="mb-4 md:mb-6 animate-fade-in">
+            <Button variant="ghost" onClick={() => navigate("/dashboard")} className="mb-4 text-xs md:text-sm">
+              <ArrowLeft className="mr-2 h-3 w-3 md:h-4 md:w-4" />
+              Back to Catalogue
             </Button>
+
+            <div className="flex flex-col gap-4">
+              <div>
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2">{template.name}</h1>
+                <div className="flex items-center gap-2 md:gap-3 flex-wrap">
+                  <Badge variant="secondary" className="text-sm md:text-lg px-2 md:px-3 py-0.5 md:py-1">
+                    ₹{template.price.toLocaleString()}
+                  </Badge>
+                  <Badge className="text-sm md:text-lg px-2 md:px-3 py-0.5 md:py-1 bg-primary/20 text-primary border-primary">
+                    You earn ₹{template.commission.toLocaleString()} per sale
+                  </Badge>
+                </div>
+              </div>
+              <Button
+                size="lg"
+                onClick={() => window.open(template.demoUrl, "_blank")}
+                className="shadow-glow w-full md:w-auto"
+              >
+                <ExternalLink className="mr-2 h-4 w-4 md:h-5 md:w-5" />
+                View Demo
+              </Button>
+            </div>
           </div>
-        </div>
 
         {/* Description Section */}
         <Card className="mb-6 gradient-card shadow-card animate-scale-in">
@@ -290,12 +290,12 @@ const TemplateDetail = () => {
         </Card>
 
         {/* CTA */}
-        <div className="flex justify-center gap-4 animate-fade-in" style={{ animationDelay: "0.5s" }}>
+        <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4 animate-fade-in" style={{ animationDelay: "0.5s" }}>
           <Button
             size="lg"
             variant="outline"
             onClick={() => navigate("/dashboard")}
-            className="min-w-[200px] hover:-translate-y-0.5 transition-transform"
+            className="w-full sm:w-auto sm:min-w-[200px] hover:-translate-y-0.5 transition-transform"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Catalogue
@@ -303,7 +303,7 @@ const TemplateDetail = () => {
           <Button
             size="lg"
             onClick={() => window.open(template.demoUrl, "_blank")}
-            className="min-w-[200px] shadow-glow hover:-translate-y-0.5 transition-transform"
+            className="w-full sm:w-auto sm:min-w-[200px] shadow-glow hover:-translate-y-0.5 transition-transform"
           >
             <ExternalLink className="mr-2 h-5 w-5" />
             View Demo

@@ -147,16 +147,16 @@ const Dashboard = () => {
       {/* Header */}
       <header className="border-b border-border bg-card">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <Link to="/" className="text-2xl font-bold text-primary">
+          <Link to="/" className="text-xl md:text-2xl font-bold text-primary">
             Atum
           </Link>
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-muted-foreground">
+          <div className="flex items-center gap-2 md:gap-4">
+            <span className="text-xs md:text-sm text-muted-foreground hidden sm:inline">
               Welcome, {userData.name || "Affiliate"}
             </span>
             <Button variant="outline" size="sm" onClick={handleLogout}>
-              <LogOut className="h-4 w-4 mr-2" />
-              Logout
+              <LogOut className="h-4 w-4 md:mr-2" />
+              <span className="hidden md:inline">Logout</span>
             </Button>
           </div>
         </div>
@@ -165,30 +165,30 @@ const Dashboard = () => {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-8 bg-muted/50">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 mb-8 bg-muted/50 h-auto">
             <TabsTrigger 
               value="overview" 
-              className="transition-all duration-300 data-[state=active]:shadow-glow data-[state=active]:scale-105"
+              className="transition-all duration-300 data-[state=active]:shadow-glow data-[state=active]:scale-105 text-xs md:text-sm py-2"
             >
               Overview
             </TabsTrigger>
             <TabsTrigger 
               value="catalogue" 
-              className="transition-all duration-300 data-[state=active]:shadow-glow data-[state=active]:scale-105"
+              className="transition-all duration-300 data-[state=active]:shadow-glow data-[state=active]:scale-105 text-xs md:text-sm py-2"
             >
-              Templates Catalogue
+              <span className="hidden md:inline">Templates </span>Catalogue
             </TabsTrigger>
             <TabsTrigger 
               value="sales" 
-              className="transition-all duration-300 data-[state=active]:shadow-glow data-[state=active]:scale-105"
+              className="transition-all duration-300 data-[state=active]:shadow-glow data-[state=active]:scale-105 text-xs md:text-sm py-2"
             >
-              Sales Tracker
+              Sales<span className="hidden md:inline"> Tracker</span>
             </TabsTrigger>
             <TabsTrigger 
               value="profile" 
-              className="transition-all duration-300 data-[state=active]:shadow-glow data-[state=active]:scale-105"
+              className="transition-all duration-300 data-[state=active]:shadow-glow data-[state=active]:scale-105 text-xs md:text-sm py-2"
             >
-              Profile & Payments
+              Profile<span className="hidden md:inline"> & Payments</span>
             </TabsTrigger>
           </TabsList>
 
@@ -299,47 +299,47 @@ const Dashboard = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
               {templates.map((template, index) => (
                 <Card 
                   key={template.id} 
-                  className="gradient-card shadow-card p-6 border-border hover:shadow-glow hover:-translate-y-1 transition-all duration-300 cursor-pointer animate-scale-in group"
+                  className="gradient-card shadow-card p-4 md:p-6 border-border hover:shadow-glow hover:-translate-y-1 transition-all duration-300 cursor-pointer animate-scale-in group"
                   style={{ animationDelay: `${0.1 + index * 0.05}s` }}
                 >
                   <div className="mb-4">
-                    <Badge variant="secondary" className="bg-primary/10 text-primary">
+                    <Badge variant="secondary" className="bg-primary/10 text-primary text-xs">
                       {template.category}
                     </Badge>
                   </div>
-                  <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
+                  <h3 className="text-lg md:text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
                     {template.name}
                   </h3>
                   <div className="space-y-2 mb-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">Price:</span>
-                      <span className="font-semibold">{template.price}</span>
+                      <span className="text-xs md:text-sm text-muted-foreground">Price:</span>
+                      <span className="text-sm md:text-base font-semibold">{template.price}</span>
                     </div>
                     <div className="flex justify-between items-center p-2 bg-primary/5 rounded group-hover:bg-primary/10 transition-colors">
-                      <span className="text-sm text-muted-foreground">Your Commission (20%):</span>
-                      <span className="font-bold text-primary text-lg">{template.commission}</span>
+                      <span className="text-xs md:text-sm text-muted-foreground">Your Commission (20%):</span>
+                      <span className="font-bold text-primary text-base md:text-lg">{template.commission}</span>
                     </div>
                   </div>
                   <div className="flex gap-2">
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      className="flex-1"
+                      className="flex-1 text-xs md:text-sm"
                       onClick={() => window.open(template.demoUrl, '_blank')}
                     >
-                      <ExternalLink className="h-4 w-4 mr-1" />
-                      View Demo
+                      <ExternalLink className="h-3 w-3 md:h-4 md:w-4 mr-1" />
+                      <span className="hidden sm:inline">View </span>Demo
                     </Button>
                     <Button 
                       size="sm" 
-                      className="flex-1 shadow-glow"
+                      className="flex-1 shadow-glow text-xs md:text-sm"
                       onClick={() => navigate(`/template/${template.id}`)}
                     >
-                      <FileText className="h-4 w-4 mr-1" />
+                      <FileText className="h-3 w-3 md:h-4 md:w-4 mr-1" />
                       Details
                     </Button>
                   </div>
@@ -357,7 +357,56 @@ const Dashboard = () => {
               </p>
             </div>
 
-            <Card className="gradient-card shadow-card border-border animate-scale-in" style={{ animationDelay: "0.1s" }}>
+            {/* Mobile: Card Layout */}
+            <div className="md:hidden space-y-4 animate-scale-in" style={{ animationDelay: "0.1s" }}>
+              {sortedSales.map((sale, index) => (
+                <Card 
+                  key={sale.id} 
+                  className="gradient-card shadow-card p-4 border-border animate-fade-in"
+                  style={{ animationDelay: `${0.05 * index}s` }}
+                >
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-1">Sale ID</p>
+                        <p className="font-semibold">{sale.id}</p>
+                      </div>
+                      <Badge 
+                        variant={sale.status === 'Paid' ? 'default' : 'secondary'}
+                        className={
+                          sale.status === 'Paid' 
+                            ? 'bg-green-500/20 text-green-700 hover:bg-green-500/30' 
+                            : 'bg-orange-500/20 text-orange-700 hover:bg-orange-500/30'
+                        }
+                      >
+                        {sale.status}
+                      </Badge>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground mb-1">Template</p>
+                      <p className="text-sm font-medium">{sale.template}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground mb-1">Vendor</p>
+                      <p className="text-sm">{sale.vendor}</p>
+                    </div>
+                    <div className="flex justify-between items-center pt-2 border-t border-border">
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-1">Date</p>
+                        <p className="text-sm">{sale.date}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xs text-muted-foreground mb-1">Commission</p>
+                        <p className="text-lg font-bold text-primary">{sale.commission}</p>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+
+            {/* Desktop: Table Layout */}
+            <Card className="hidden md:block gradient-card shadow-card border-border animate-scale-in overflow-x-auto" style={{ animationDelay: "0.1s" }}>
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -440,13 +489,6 @@ const Dashboard = () => {
                 </TableBody>
               </Table>
             </Card>
-
-            {salesData.length === 0 && (
-              <div className="text-center py-12 text-muted-foreground animate-fade-in">
-                <Package className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                <p>No sales yet. Start sharing templates to earn commissions!</p>
-              </div>
-            )}
           </TabsContent>
 
           {/* Profile & Payments Tab */}
@@ -458,12 +500,12 @@ const Dashboard = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              <Card className="gradient-card shadow-card p-6 border-border animate-scale-in" style={{ animationDelay: "0.1s" }}>
-                <h3 className="text-xl font-semibold mb-4">Personal Information</h3>
+            <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card className="gradient-card shadow-card p-4 md:p-6 border-border animate-scale-in" style={{ animationDelay: "0.1s" }}>
+                <h3 className="text-lg md:text-xl font-semibold mb-4">Personal Information</h3>
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor="name">Full Name</Label>
+                    <Label htmlFor="name" className="text-sm">Full Name</Label>
                     <Input
                       id="name"
                       value={profileData.name}
@@ -472,7 +514,7 @@ const Dashboard = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email" className="text-sm">Email</Label>
                     <Input
                       id="email"
                       type="email"
@@ -482,7 +524,7 @@ const Dashboard = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="city">City</Label>
+                    <Label htmlFor="city" className="text-sm">City</Label>
                     <Input
                       id="city"
                       value={profileData.city}
@@ -491,7 +533,7 @@ const Dashboard = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="phone">Phone Number</Label>
+                    <Label htmlFor="phone" className="text-sm">Phone Number</Label>
                     <Input
                       id="phone"
                       value={profileData.phone}
@@ -500,7 +542,7 @@ const Dashboard = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="upi">UPI ID</Label>
+                    <Label htmlFor="upi" className="text-sm">UPI ID</Label>
                     <Input
                       id="upi"
                       value={profileData.upiId}
@@ -525,8 +567,8 @@ const Dashboard = () => {
                 </div>
               </Card>
 
-              <Card className="gradient-card shadow-card p-6 border-border animate-scale-in" style={{ animationDelay: "0.2s" }}>
-                <h3 className="text-xl font-semibold mb-4">Recent Payouts</h3>
+              <Card className="gradient-card shadow-card p-4 md:p-6 border-border animate-scale-in" style={{ animationDelay: "0.2s" }}>
+                <h3 className="text-lg md:text-xl font-semibold mb-4">Recent Payouts</h3>
                 {payoutHistory.length > 0 ? (
                   <Accordion type="single" collapsible className="w-full">
                     {payoutHistory.map((payout, index) => (

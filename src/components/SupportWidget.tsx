@@ -144,40 +144,40 @@ const SupportWidget = () => {
       {/* Support Widget */}
       {isOpen && (
         <Card
-          className={`fixed bottom-6 right-6 w-[400px] border-border shadow-glow z-50 transition-all duration-300 ${
-            isMinimized ? "h-14" : "h-[600px]"
+          className={`fixed bottom-4 md:bottom-6 right-4 md:right-6 w-[calc(100vw-2rem)] md:w-[400px] max-w-[400px] border-border shadow-glow z-50 transition-all duration-300 ${
+            isMinimized ? "h-14" : "h-[500px] md:h-[600px]"
           } animate-scale-in`}
         >
           {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b border-border bg-primary/10">
+          <div className="flex items-center justify-between p-3 md:p-4 border-b border-border bg-primary/10">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-                <MessageCircle className="h-4 w-4 text-primary-foreground" />
+              <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-primary flex items-center justify-center">
+                <MessageCircle className="h-3 w-3 md:h-4 md:w-4 text-primary-foreground" />
               </div>
               <div>
-                <h3 className="font-semibold text-sm">Atum Support</h3>
+                <h3 className="font-semibold text-xs md:text-sm">Atum Support</h3>
                 <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-xs text-muted-foreground">Online</span>
+                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-500 animate-pulse" />
+                  <span className="text-[10px] md:text-xs text-muted-foreground">Online</span>
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 md:gap-2">
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => setIsMinimized(!isMinimized)}
-                className="h-8 w-8"
+                className="h-7 w-7 md:h-8 md:w-8"
               >
-                <Minimize2 className="h-4 w-4" />
+                <Minimize2 className="h-3 w-3 md:h-4 md:w-4" />
               </Button>
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => setIsOpen(false)}
-                className="h-8 w-8"
+                className="h-7 w-7 md:h-8 md:w-8"
               >
-                <X className="h-4 w-4" />
+                <X className="h-3 w-3 md:h-4 md:w-4" />
               </Button>
             </div>
           </div>
@@ -191,9 +191,9 @@ const SupportWidget = () => {
               </TabsList>
 
               {/* Chat Tab */}
-              <TabsContent value="chat" className="flex-1 flex flex-col m-0 h-[490px]">
+              <TabsContent value="chat" className="flex-1 flex flex-col m-0 h-[410px] md:h-[490px]">
                 {/* Messages */}
-                <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-3 md:space-y-4">
                   {messages.map((message) => (
                     <div
                       key={message.id}
@@ -202,14 +202,14 @@ const SupportWidget = () => {
                       } animate-fade-in`}
                     >
                       <div
-                        className={`max-w-[80%] rounded-lg p-3 ${
+                        className={`max-w-[85%] md:max-w-[80%] rounded-lg p-2 md:p-3 ${
                           message.sender === "user"
                             ? "bg-primary text-primary-foreground"
                             : "bg-muted"
                         }`}
                       >
-                        <p className="text-sm">{message.text}</p>
-                        <span className="text-xs opacity-70 mt-1 block">
+                        <p className="text-xs md:text-sm">{message.text}</p>
+                        <span className="text-[10px] md:text-xs opacity-70 mt-1 block">
                           {formatTimestamp(message.timestamp)}
                         </span>
                       </div>
@@ -236,28 +236,28 @@ const SupportWidget = () => {
                 </div>
 
                 {/* Input */}
-                <div className="p-4 border-t border-border">
+                <div className="p-3 md:p-4 border-t border-border">
                   <div className="flex gap-2">
-                    <Button variant="ghost" size="icon" className="flex-shrink-0">
-                      <Paperclip className="h-4 w-4" />
+                    <Button variant="ghost" size="icon" className="flex-shrink-0 h-8 w-8 md:h-10 md:w-10 hidden sm:flex">
+                      <Paperclip className="h-3 w-3 md:h-4 md:w-4" />
                     </Button>
                     <Input
                       value={inputMessage}
                       onChange={(e) => setInputMessage(e.target.value)}
                       onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
                       placeholder="Type your message..."
-                      className="flex-1"
+                      className="flex-1 text-xs md:text-sm h-8 md:h-10"
                     />
-                    <Button onClick={handleSendMessage} size="icon" className="flex-shrink-0">
-                      <Send className="h-4 w-4" />
+                    <Button onClick={handleSendMessage} size="icon" className="flex-shrink-0 h-8 w-8 md:h-10 md:w-10">
+                      <Send className="h-3 w-3 md:h-4 md:w-4" />
                     </Button>
                   </div>
                 </div>
               </TabsContent>
 
               {/* Tickets Tab */}
-              <TabsContent value="tickets" className="flex-1 flex flex-col m-0 h-[490px]">
-                <div className="flex-1 overflow-y-auto p-4 space-y-4">
+              <TabsContent value="tickets" className="flex-1 flex flex-col m-0 h-[410px] md:h-[490px]">
+                <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-3 md:space-y-4">
                   {/* Create Ticket Form */}
                   <Card className="p-4 bg-muted/30 border-border">
                     <h4 className="font-semibold mb-3 text-sm">Create New Ticket</h4>

@@ -9,6 +9,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Link, useNavigate } from "react-router-dom";
 import { DollarSign, Package, TrendingUp, LogOut, ExternalLink, FileText, ArrowUpDown } from "lucide-react";
 import { useState, useEffect } from "react";
+import SupportWidget from "@/components/SupportWidget";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -137,8 +139,11 @@ const Dashboard = () => {
     return 0;
   });
 
+  const [activeTab, setActiveTab] = useState("overview");
+
   return (
     <div className="min-h-screen bg-background">
+      <SupportWidget />
       {/* Header */}
       <header className="border-b border-border bg-card">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
@@ -159,18 +164,30 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-8">
-        <Tabs defaultValue="overview" className="w-full">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-4 mb-8 bg-muted/50">
-            <TabsTrigger value="overview" className="transition-all data-[state=active]:shadow-glow">
+            <TabsTrigger 
+              value="overview" 
+              className="transition-all duration-300 data-[state=active]:shadow-glow data-[state=active]:scale-105"
+            >
               Overview
             </TabsTrigger>
-            <TabsTrigger value="catalogue" className="transition-all data-[state=active]:shadow-glow">
+            <TabsTrigger 
+              value="catalogue" 
+              className="transition-all duration-300 data-[state=active]:shadow-glow data-[state=active]:scale-105"
+            >
               Templates Catalogue
             </TabsTrigger>
-            <TabsTrigger value="sales" className="transition-all data-[state=active]:shadow-glow">
+            <TabsTrigger 
+              value="sales" 
+              className="transition-all duration-300 data-[state=active]:shadow-glow data-[state=active]:scale-105"
+            >
               Sales Tracker
             </TabsTrigger>
-            <TabsTrigger value="profile" className="transition-all data-[state=active]:shadow-glow">
+            <TabsTrigger 
+              value="profile" 
+              className="transition-all duration-300 data-[state=active]:shadow-glow data-[state=active]:scale-105"
+            >
               Profile & Payments
             </TabsTrigger>
           </TabsList>
@@ -195,7 +212,9 @@ const Dashboard = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Total Earnings</p>
-                    <p className="text-3xl font-bold text-primary">₹1,300</p>
+                    <p className="text-3xl font-bold text-primary">
+                      <AnimatedCounter end={1300} prefix="₹" duration={2000} />
+                    </p>
                   </div>
                   <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
                     <DollarSign className="h-6 w-6 text-primary" />
@@ -212,7 +231,9 @@ const Dashboard = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Total Sales</p>
-                    <p className="text-3xl font-bold text-primary">3</p>
+                    <p className="text-3xl font-bold text-primary">
+                      <AnimatedCounter end={3} duration={1500} />
+                    </p>
                   </div>
                   <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
                     <TrendingUp className="h-6 w-6 text-primary" />
@@ -229,7 +250,9 @@ const Dashboard = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Pending Payouts</p>
-                    <p className="text-3xl font-bold text-primary">₹600</p>
+                    <p className="text-3xl font-bold text-primary">
+                      <AnimatedCounter end={600} prefix="₹" duration={2000} />
+                    </p>
                   </div>
                   <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
                     <Package className="h-6 w-6 text-primary" />

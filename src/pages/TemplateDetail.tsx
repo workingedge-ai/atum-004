@@ -290,15 +290,23 @@ const TemplateDetail = () => {
         </Card>
 
         {/* CTA */}
-        <div className="flex justify-center animate-fade-in" style={{ animationDelay: "0.5s" }}>
+        <div className="flex justify-center gap-4 animate-fade-in" style={{ animationDelay: "0.5s" }}>
           <Button
             size="lg"
             variant="outline"
             onClick={() => navigate("/dashboard")}
-            className="min-w-[200px]"
+            className="min-w-[200px] hover:-translate-y-0.5 transition-transform"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Catalogue
+          </Button>
+          <Button
+            size="lg"
+            onClick={() => window.open(template.demoUrl, "_blank")}
+            className="min-w-[200px] shadow-glow hover:-translate-y-0.5 transition-transform"
+          >
+            <ExternalLink className="mr-2 h-5 w-5" />
+            View Demo
           </Button>
         </div>
       </div>

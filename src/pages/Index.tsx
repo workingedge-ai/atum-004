@@ -5,16 +5,22 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { ArrowRight, CheckCircle, DollarSign, Package, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
+import atumLogo from "@/assets/atum-logo-new.png";
 
 const Index = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mousePosition, setMousePosition] = useState({ 
+    x: typeof window !== 'undefined' ? window.innerWidth / 2 : 0, 
+    y: typeof window !== 'undefined' ? window.innerHeight / 2 : 0 
+  });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      requestAnimationFrame(() => {
+        setMousePosition({ x: e.clientX, y: e.clientY });
+      });
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
   const templates = [{
@@ -226,7 +232,7 @@ const Index = () => {
       <footer className="py-10 md:py-12 px-4 border-t border-border">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
-            <div className="text-xl md:text-2xl font-bold text-primary">Atum</div>
+            <img src={atumLogo} alt="Atum Logo" className="h-8 md:h-10 w-auto" />
             <div className="flex flex-wrap justify-center gap-4 md:gap-6">
               <Link to="/contact" className="text-sm md:text-base text-muted-foreground hover:text-foreground transition-colors">FAQ</Link>
               <Link to="/contact" className="text-sm md:text-base text-muted-foreground hover:text-foreground transition-colors">Contact</Link>

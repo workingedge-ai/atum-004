@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
-import atumLogo from "@/assets/atum-logo.png";
+import atumLogo from "@/assets/atum-logo-new.png";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);

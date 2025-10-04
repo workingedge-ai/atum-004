@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Atum Brand Colors */
+    --background: 202 38% 8%;
+    --foreground: 202 77% 85%;
+    
+    /* Title text for better readability */
+    --title-foreground: 0 0% 98%;
+
+    --card: 202 38% 12%;
+    --card-foreground: 202 77% 85%;
+
+    --popover: 202 38% 10%;
+    --popover-foreground: 202 77% 85%;
+
+    --primary: 202 100% 31%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 202 77% 85%;
+    --secondary-foreground: 202 38% 8%;
+
+    --muted: 202 38% 15%;
+    --muted-foreground: 202 30% 60%;
+
+    --accent: 202 100% 31%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 202 38% 20%;
+    --input: 202 38% 15%;
+    --ring: 202 100% 31%;
+
+    --radius: 0.75rem;
+
+    /* Custom Atum tokens */
+    --brand-primary: 202 38% 8%;
+    --brand-secondary: 202 100% 31%;
+    --brand-tertiary: 202 77% 85%;
+    
+    --gradient-hero: linear-gradient(135deg, hsl(202 38% 8%), hsl(202 50% 12%));
+    --gradient-card: linear-gradient(135deg, hsl(202 38% 12%), hsl(202 38% 10%));
+    --shadow-glow: 0 0 40px hsl(202 100% 31% / 0.15);
+    --shadow-card: 0 10px 30px -10px hsl(202 38% 5% / 0.5);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+    color: hsl(var(--title-foreground));
+  }
+}
+
+@layer utilities {
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+  
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+}

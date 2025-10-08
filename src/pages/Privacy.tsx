@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
+import atumLogo from "@/assets/atum-logo-new.png";
 
 const Privacy = () => {
   return (
@@ -106,7 +107,7 @@ const Privacy = () => {
       <footer className="py-12 px-4 border-t border-border">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-2xl font-bold text-primary">Atum</div>
+            <img src={atumLogo} alt="Atum Logo" className="h-8 md:h-10 w-auto" />
             <div className="flex gap-6">
               <Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors">FAQ</Link>
               <Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</Link>

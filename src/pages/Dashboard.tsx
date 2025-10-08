@@ -11,8 +11,11 @@ import { DollarSign, Package, TrendingUp, LogOut, ExternalLink, FileText, ArrowU
 import { useState, useEffect } from "react";
 import SupportWidget from "@/components/SupportWidget";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import atumLogo from "@/assets/atum-logo-new.png";
+import { useMouseTrail } from "@/hooks/useMouseTrail";
 
 const Dashboard = () => {
+  useMouseTrail();
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem("atumUser") || "{}");
   
@@ -147,8 +150,8 @@ const Dashboard = () => {
       {/* Header */}
       <header className="border-b border-border bg-card">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <Link to="/" className="text-xl md:text-2xl font-bold text-primary">
-            Atum
+          <Link to="/">
+            <img src={atumLogo} alt="Atum Logo" className="h-6 md:h-8 w-auto" />
           </Link>
           <div className="flex items-center gap-2 md:gap-4">
             <span className="text-xs md:text-sm text-muted-foreground hidden sm:inline">

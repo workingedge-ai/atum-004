@@ -38,12 +38,12 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 md:top-4 left-0 md:left-1/2 md:-translate-x-1/2 w-full md:w-auto z-50 transition-all duration-300 px-4 md:px-0 pt-4 md:pt-0">
+    <header className={`fixed top-0 md:top-4 left-0 md:left-1/2 md:-translate-x-1/2 w-full md:w-auto z-50 transition-all duration-300 px-4 md:px-0 ${isScrolled ? "pt-4 md:pt-0" : "pt-6 md:pt-2"}`}>
       <nav
         className={`
           backdrop-blur-md bg-card/80 border border-border/50 rounded-full shadow-glow
-          transition-all duration-300 px-4 md:px-6 py-3
-          w-full md:w-auto ${isScrolled ? "md:w-[600px]" : "md:w-[800px]"}
+          transition-all duration-300
+          w-full md:w-auto ${isScrolled ? "md:w-[600px] px-4 md:px-6 py-3" : "md:w-[800px] px-6 md:px-8 py-4"}
         `}
       >
         <div className="flex items-center justify-between gap-4">

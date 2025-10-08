@@ -7,25 +7,49 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     city: "",
     phone: "",
     upiId: "",
-    acceptTerms: false,
-    acceptConduct: false
+    acceptTerms: false
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.acceptTerms && formData.acceptConduct) {
-      // Store user data (will be replaced with actual auth later)
+    if (!formData.acceptTerms) {
+      toast({
+        title: "Error",
+        description: "Please accept the Terms & Conditions",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // TODO: Add validation checks when profiles table is created
+      // For now, store user data temporarily
       localStorage.setItem("atumUser", JSON.stringify(formData));
       navigate("/walkthrough");
+    } catch (error) {
+      console.error("Signup error:", error);
+      toast({
+        title: "Error",
+        description: "An error occurred during signup. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -135,23 +159,10 @@ const Signup = () => {
                   htmlFor="terms"
                   className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  I agree to the Terms & Conditions
-                </label>
-              </div>
-
-              <div className="flex items-start space-x-2">
-                <Checkbox
-                  id="conduct"
-                  checked={formData.acceptConduct}
-                  onCheckedChange={(checked) => 
-                    setFormData({ ...formData, acceptConduct: checked as boolean })
-                  }
-                />
-                <label
-                  htmlFor="conduct"
-                  className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  I accept the Code of Conduct
+                  I agree to the{" "}
+                  <Link to="/terms" className="text-primary hover:underline">
+                    Terms & Conditions
+                  </Link>
                 </label>
               </div>
             </div>
@@ -160,9 +171,9 @@ const Signup = () => {
               type="submit"
               className="w-full shadow-glow"
               size="lg"
-              disabled={!formData.acceptTerms || !formData.acceptConduct}
+              disabled={!formData.acceptTerms || isLoading}
             >
-              Create Account
+              {isLoading ? "Creating Account..." : "Create Account"}
             </Button>
           </form>
 

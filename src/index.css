@@ -87,3 +87,55 @@ All colors MUST be HSL.
     box-shadow: var(--shadow-card);
   }
 }
+
+/* Mouse Trail Effect */
+:root {
+  --mouse-x: 50vw;
+  --mouse-y: 50vh;
+  --cursor-x: 50vw;
+  --cursor-y: 50vh;
+  --cursor-opacity: 0;
+}
+
+@layer base {
+  body {
+    cursor: none;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: radial-gradient(circle, hsl(202 100% 31% / 0.3), transparent 70%);
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    left: var(--mouse-x);
+    top: var(--mouse-y);
+    opacity: var(--cursor-opacity);
+    transition: opacity 0.3s ease;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: hsl(202 100% 31%);
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    left: var(--cursor-x);
+    top: var(--cursor-y);
+    opacity: var(--cursor-opacity);
+    transition: opacity 0.3s ease;
+  }
+
+  /* Show default cursor for interactive elements */
+  a, button, input, textarea, select, [role="button"], [tabindex]:not([tabindex="-1"]) {
+    cursor: pointer !important;
+  }
+}

@@ -13,13 +13,13 @@ export const useMouseTrail = () => {
       const cursorBefore = document.querySelector('body::before') as HTMLElement | null;
       const cursorAfter = document.querySelector('body::after') as HTMLElement | null;
 
-      // Smooth follow for the larger trail circle
-      trailX += (mouseX - trailX) * 0.15;
-      trailY += (mouseY - trailY) * 0.15;
+    // Slower follow for water-like trail effect
+    trailX += (mouseX - trailX) * 0.08;
+    trailY += (mouseY - trailY) * 0.08;
 
-      // Faster follow for the smaller cursor circle
-      cursorX += (mouseX - cursorX) * 0.3;
-      cursorY += (mouseY - cursorY) * 0.3;
+    // Medium speed for inner glow
+    cursorX += (mouseX - cursorX) * 0.15;
+    cursorY += (mouseY - cursorY) * 0.15;
 
       // Update CSS custom properties
       document.documentElement.style.setProperty('--mouse-x', `${trailX}px`);

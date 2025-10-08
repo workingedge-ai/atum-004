@@ -98,44 +98,38 @@ All colors MUST be HSL.
 }
 
 @layer base {
-  body {
-    cursor: none;
-  }
-
+  /* Water-like glow trail effect */
   body::before {
     content: '';
     position: fixed;
-    width: 40px;
-    height: 40px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    background: radial-gradient(circle, hsl(202 100% 31% / 0.3), transparent 70%);
+    background: radial-gradient(circle, hsl(202 100% 31% / 0.15), hsl(202 100% 31% / 0.08) 40%, transparent 70%);
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
     left: var(--mouse-x);
     top: var(--mouse-y);
     opacity: var(--cursor-opacity);
-    transition: opacity 0.3s ease;
+    transition: opacity 0.5s ease;
+    filter: blur(20px);
   }
 
   body::after {
     content: '';
     position: fixed;
-    width: 8px;
-    height: 8px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
-    background: hsl(202 100% 31%);
+    background: radial-gradient(circle, hsl(202 100% 31% / 0.25), hsl(202 100% 31% / 0.12) 50%, transparent 70%);
     pointer-events: none;
     z-index: 10000;
     transform: translate(-50%, -50%);
     left: var(--cursor-x);
     top: var(--cursor-y);
     opacity: var(--cursor-opacity);
-    transition: opacity 0.3s ease;
-  }
-
-  /* Show default cursor for interactive elements */
-  a, button, input, textarea, select, [role="button"], [tabindex]:not([tabindex="-1"]) {
-    cursor: pointer !important;
+    transition: opacity 0.5s ease;
+    filter: blur(10px);
   }
 }

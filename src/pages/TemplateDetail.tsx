@@ -12,6 +12,7 @@ const templates = [
     price: 2000,
     commission: 400,
     demoUrl: "https://example.com/demo/gym",
+    image: "/src/assets/template-gym.jpg",
     description: "A complete digital solution for gyms and fitness studios, featuring membership management, class scheduling, and payment integration. This template is fully customizable and ready to deploy.",
     targetMarket: [
       "Local gyms and fitness centers",
@@ -44,6 +45,7 @@ const templates = [
     price: 2500,
     commission: 500,
     demoUrl: "https://example.com/demo/restaurant",
+    image: "/src/assets/template-restaurant.jpg",
     description: "A beautiful template designed for restaurants, cafés, and food businesses. Includes online menu, table reservations, and online ordering capabilities.",
     targetMarket: [
       "Restaurants and cafés",
@@ -76,6 +78,7 @@ const templates = [
     price: 1800,
     commission: 360,
     demoUrl: "https://example.com/demo/salon",
+    image: "/src/assets/template-salon.jpg",
     description: "Professional template for salons, spas, and beauty parlors. Features appointment booking, service showcase, and gallery.",
     targetMarket: [
       "Hair salons",
@@ -108,6 +111,7 @@ const templates = [
     price: 3000,
     commission: 600,
     demoUrl: "https://example.com/demo/retail",
+    image: "/src/assets/template-retail.jpg",
     description: "Complete e-commerce solution for retail businesses. Includes product catalog, shopping cart, and payment gateway integration.",
     targetMarket: [
       "Local retail stores",
@@ -165,11 +169,20 @@ const TemplateDetail = () => {
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
           {/* Header */}
-          <div className="mb-4 md:mb-6 animate-fade-in">
+          <div className="mb-4 md:mb-6">
             <Button variant="ghost" onClick={() => navigate("/dashboard")} className="mb-4 text-xs md:text-sm">
               <ArrowLeft className="mr-2 h-3 w-3 md:h-4 md:w-4" />
               Back to Catalogue
             </Button>
+
+            {/* Cover Image */}
+            <div className="aspect-video w-full overflow-hidden rounded-lg mb-6 shadow-glow">
+              <img 
+                src={template.image} 
+                alt={template.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
 
             <div className="flex flex-col gap-4">
               <div>
@@ -195,7 +208,7 @@ const TemplateDetail = () => {
           </div>
 
         {/* Description Section */}
-        <Card className="mb-6 gradient-card shadow-card animate-scale-in">
+        <Card className="mb-6 gradient-card shadow-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <div className="h-1 w-1 rounded-full bg-primary" />
@@ -208,7 +221,7 @@ const TemplateDetail = () => {
         </Card>
 
         {/* Target Market Section */}
-        <Card className="mb-6 gradient-card shadow-card animate-scale-in" style={{ animationDelay: "0.1s" }}>
+        <Card className="mb-6 gradient-card shadow-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <div className="h-1 w-1 rounded-full bg-primary" />
@@ -229,7 +242,7 @@ const TemplateDetail = () => {
         </Card>
 
         {/* Key Features Section */}
-        <Card className="mb-6 gradient-card shadow-card animate-scale-in" style={{ animationDelay: "0.2s" }}>
+        <Card className="mb-6 gradient-card shadow-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <div className="h-1 w-1 rounded-full bg-primary" />
@@ -250,7 +263,7 @@ const TemplateDetail = () => {
         </Card>
 
         {/* How to Sell Section */}
-        <Card className="mb-6 gradient-card shadow-card animate-scale-in" style={{ animationDelay: "0.3s" }}>
+        <Card className="mb-6 gradient-card shadow-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <div className="h-1 w-1 rounded-full bg-primary" />
@@ -273,7 +286,7 @@ const TemplateDetail = () => {
         </Card>
 
         {/* Delivery Info Section */}
-        <Card className="mb-6 gradient-card shadow-card animate-scale-in" style={{ animationDelay: "0.4s" }}>
+        <Card className="mb-6 gradient-card shadow-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <div className="h-1 w-1 rounded-full bg-primary" />
@@ -290,7 +303,7 @@ const TemplateDetail = () => {
         </Card>
 
         {/* CTA */}
-        <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4 animate-fade-in" style={{ animationDelay: "0.5s" }}>
+        <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
           <Button
             size="lg"
             variant="outline"

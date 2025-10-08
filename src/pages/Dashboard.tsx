@@ -44,7 +44,8 @@ const Dashboard = () => {
       price: "₹2,000",
       commission: "₹400",
       category: "Fitness",
-      demoUrl: "https://demo.example.com/gym"
+      demoUrl: "https://demo.example.com/gym",
+      image: "/src/assets/template-gym.jpg"
     },
     {
       id: "restaurant-template",
@@ -52,7 +53,8 @@ const Dashboard = () => {
       price: "₹2,500",
       commission: "₹500",
       category: "Food & Beverage",
-      demoUrl: "https://demo.example.com/restaurant"
+      demoUrl: "https://demo.example.com/restaurant",
+      image: "/src/assets/template-restaurant.jpg"
     },
     {
       id: "salon-template",
@@ -60,7 +62,8 @@ const Dashboard = () => {
       price: "₹1,800",
       commission: "₹360",
       category: "Beauty & Wellness",
-      demoUrl: "https://demo.example.com/salon"
+      demoUrl: "https://demo.example.com/salon",
+      image: "/src/assets/template-salon.jpg"
     },
     {
       id: "retail-template",
@@ -68,7 +71,8 @@ const Dashboard = () => {
       price: "₹3,000",
       commission: "₹600",
       category: "Retail",
-      demoUrl: "https://demo.example.com/retail"
+      demoUrl: "https://demo.example.com/retail",
+      image: "/src/assets/template-retail.jpg"
     }
   ];
 
@@ -196,12 +200,12 @@ const Dashboard = () => {
           </TabsList>
 
           {/* Overview Tab */}
-          <TabsContent value="overview" className="space-y-6 animate-fade-in">
+          <TabsContent value="overview" className="space-y-6">
             <div className="mb-6">
-              <h1 className="text-4xl font-bold mb-2 animate-slide-in">
+              <h1 className="text-4xl font-bold mb-2">
                 Welcome back, {profileData.name || "Affiliate"}!
               </h1>
-              <p className="text-lg text-muted-foreground animate-fade-in" style={{ animationDelay: "0.1s" }}>
+              <p className="text-lg text-muted-foreground">
                 Here's your performance overview
               </p>
             </div>
@@ -264,17 +268,14 @@ const Dashboard = () => {
               </Card>
             </div>
 
-            <Card className="gradient-card shadow-card p-6 border-border animate-scale-in" style={{ animationDelay: "0.3s" }}>
+            <Card className="gradient-card shadow-card p-6 border-border">
               <h3 className="text-xl font-semibold mb-4">Sales Trend</h3>
               <div className="h-64 flex items-end justify-around gap-2">
-                {[40, 65, 45, 80, 55, 70, 90].map((height, index) => (
+                  {[40, 65, 45, 80, 55, 70, 90].map((height, index) => (
                   <div key={index} className="flex-1 flex flex-col items-center gap-2">
                     <div 
-                      className="w-full bg-primary/20 hover:bg-primary/30 transition-all rounded-t animate-scale-in cursor-pointer"
-                      style={{ 
-                        height: `${height}%`,
-                        animationDelay: `${0.4 + index * 0.05}s`
-                      }}
+                      className="w-full bg-primary/20 hover:bg-primary/30 transition-all rounded-t cursor-pointer"
+                      style={{ height: `${height}%` }}
                     />
                     <span className="text-xs text-muted-foreground">Day {index + 1}</span>
                   </div>
@@ -282,7 +283,7 @@ const Dashboard = () => {
               </div>
             </Card>
 
-            <Card className="gradient-card shadow-card p-6 border-border animate-fade-in" style={{ animationDelay: "0.5s" }}>
+            <Card className="gradient-card shadow-card p-6 border-border">
               <h3 className="text-xl font-semibold mb-4">Quick Summary</h3>
               <div className="space-y-3 text-muted-foreground">
                 <p>• You've made <span className="font-semibold text-primary">3 sales</span> this month</p>
@@ -294,57 +295,65 @@ const Dashboard = () => {
           </TabsContent>
 
           {/* Templates Catalogue Tab */}
-          <TabsContent value="catalogue" className="space-y-6 animate-fade-in">
+          <TabsContent value="catalogue" className="space-y-6">
             <div className="mb-6">
-              <h2 className="text-3xl font-bold mb-2 animate-slide-in">Templates Catalogue</h2>
-              <p className="text-muted-foreground animate-fade-in" style={{ animationDelay: "0.1s" }}>
+              <h2 className="text-3xl font-bold mb-2">Templates Catalogue</h2>
+              <p className="text-muted-foreground">
                 Browse and share templates with potential clients
               </p>
             </div>
 
             <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
-              {templates.map((template, index) => (
+              {templates.map((template) => (
                 <Card 
                   key={template.id} 
-                  className="gradient-card shadow-card p-4 md:p-6 border-border hover:shadow-glow hover:-translate-y-1 transition-all duration-300 cursor-pointer animate-scale-in group"
-                  style={{ animationDelay: `${0.1 + index * 0.05}s` }}
+                  className="gradient-card shadow-card border-border hover:shadow-glow hover:-translate-y-1 transition-all duration-300 cursor-pointer group overflow-hidden"
                 >
-                  <div className="mb-4">
-                    <Badge variant="secondary" className="bg-primary/10 text-primary text-xs">
-                      {template.category}
-                    </Badge>
+                  <div className="aspect-video w-full overflow-hidden bg-muted">
+                    <img 
+                      src={template.image} 
+                      alt={template.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  <h3 className="text-lg md:text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
-                    {template.name}
-                  </h3>
-                  <div className="space-y-2 mb-4">
-                    <div className="flex justify-between items-center">
-                      <span className="text-xs md:text-sm text-muted-foreground">Price:</span>
-                      <span className="text-sm md:text-base font-semibold">{template.price}</span>
+                  <div className="p-4 md:p-6">
+                    <div className="mb-4">
+                      <Badge variant="secondary" className="bg-primary/10 text-primary text-xs">
+                        {template.category}
+                      </Badge>
                     </div>
-                    <div className="flex justify-between items-center p-2 bg-primary/5 rounded group-hover:bg-primary/10 transition-colors">
-                      <span className="text-xs md:text-sm text-muted-foreground">Your Commission (20%):</span>
-                      <span className="font-bold text-primary text-base md:text-lg">{template.commission}</span>
+                    <h3 className="text-lg md:text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
+                      {template.name}
+                    </h3>
+                    <div className="space-y-2 mb-4">
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs md:text-sm text-muted-foreground">Price:</span>
+                        <span className="text-sm md:text-base font-semibold">{template.price}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-2 bg-primary/5 rounded group-hover:bg-primary/10 transition-colors">
+                        <span className="text-xs md:text-sm text-muted-foreground">Your Commission (20%):</span>
+                        <span className="font-bold text-primary text-base md:text-lg">{template.commission}</span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="flex-1 text-xs md:text-sm"
-                      onClick={() => window.open(template.demoUrl, '_blank')}
-                    >
-                      <ExternalLink className="h-3 w-3 md:h-4 md:w-4 mr-1" />
-                      <span className="hidden sm:inline">View </span>Demo
-                    </Button>
-                    <Button 
-                      size="sm" 
-                      className="flex-1 shadow-glow text-xs md:text-sm"
-                      onClick={() => navigate(`/template/${template.id}`)}
-                    >
-                      <FileText className="h-3 w-3 md:h-4 md:w-4 mr-1" />
-                      Details
-                    </Button>
+                    <div className="flex gap-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="flex-1 text-xs md:text-sm"
+                        onClick={() => window.open(template.demoUrl, '_blank')}
+                      >
+                        <ExternalLink className="h-3 w-3 md:h-4 md:w-4 mr-1" />
+                        <span className="hidden sm:inline">View </span>Demo
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        className="flex-1 shadow-glow text-xs md:text-sm"
+                        onClick={() => navigate(`/template/${template.id}`)}
+                      >
+                        <FileText className="h-3 w-3 md:h-4 md:w-4 mr-1" />
+                        Details
+                      </Button>
+                    </div>
                   </div>
                 </Card>
               ))}
@@ -352,21 +361,20 @@ const Dashboard = () => {
           </TabsContent>
 
           {/* Sales Tracker Tab */}
-          <TabsContent value="sales" className="space-y-6 animate-fade-in">
+          <TabsContent value="sales" className="space-y-6">
             <div className="mb-6">
-              <h2 className="text-3xl font-bold mb-2 animate-slide-in">Sales Tracker</h2>
-              <p className="text-muted-foreground animate-fade-in" style={{ animationDelay: "0.1s" }}>
+              <h2 className="text-3xl font-bold mb-2">Sales Tracker</h2>
+              <p className="text-muted-foreground">
                 Track all your sales and commissions
               </p>
             </div>
 
             {/* Mobile: Card Layout */}
-            <div className="md:hidden space-y-4 animate-scale-in" style={{ animationDelay: "0.1s" }}>
-              {sortedSales.map((sale, index) => (
+            <div className="md:hidden space-y-4">
+              {sortedSales.map((sale) => (
                 <Card 
                   key={sale.id} 
-                  className="gradient-card shadow-card p-4 border-border animate-fade-in"
-                  style={{ animationDelay: `${0.05 * index}s` }}
+                  className="gradient-card shadow-card p-4 border-border"
                 >
                   <div className="space-y-3">
                     <div className="flex justify-between items-start">
@@ -409,7 +417,7 @@ const Dashboard = () => {
             </div>
 
             {/* Desktop: Table Layout */}
-            <Card className="hidden md:block gradient-card shadow-card border-border animate-scale-in overflow-x-auto" style={{ animationDelay: "0.1s" }}>
+            <Card className="hidden md:block gradient-card shadow-card border-border overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -462,11 +470,10 @@ const Dashboard = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {sortedSales.map((sale, index) => (
+                  {sortedSales.map((sale) => (
                     <TableRow 
                       key={sale.id} 
-                      className="animate-fade-in hover:bg-muted/50 transition-colors"
-                      style={{ animationDelay: `${0.05 * index}s` }}
+                      className="hover:bg-muted/50 transition-colors"
                     >
                       <TableCell className="font-medium">{sale.id}</TableCell>
                       <TableCell>{sale.template}</TableCell>
@@ -495,16 +502,16 @@ const Dashboard = () => {
           </TabsContent>
 
           {/* Profile & Payments Tab */}
-          <TabsContent value="profile" className="space-y-6 animate-fade-in">
+          <TabsContent value="profile" className="space-y-6">
             <div className="mb-6">
-              <h2 className="text-3xl font-bold mb-2 animate-slide-in">Profile & Payments</h2>
-              <p className="text-muted-foreground animate-fade-in" style={{ animationDelay: "0.1s" }}>
+              <h2 className="text-3xl font-bold mb-2">Profile & Payments</h2>
+              <p className="text-muted-foreground">
                 Manage your personal information and payment details
               </p>
             </div>
 
             <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card className="gradient-card shadow-card p-4 md:p-6 border-border animate-scale-in" style={{ animationDelay: "0.1s" }}>
+              <Card className="gradient-card shadow-card p-4 md:p-6 border-border">
                 <h3 className="text-lg md:text-xl font-semibold mb-4">Personal Information</h3>
                 <div className="space-y-4">
                   <div>
@@ -570,7 +577,7 @@ const Dashboard = () => {
                 </div>
               </Card>
 
-              <Card className="gradient-card shadow-card p-4 md:p-6 border-border animate-scale-in" style={{ animationDelay: "0.2s" }}>
+              <Card className="gradient-card shadow-card p-4 md:p-6 border-border">
                 <h3 className="text-lg md:text-xl font-semibold mb-4">Recent Payouts</h3>
                 {payoutHistory.length > 0 ? (
                   <Accordion type="single" collapsible className="w-full">

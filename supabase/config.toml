@@ -1,1 +1,4 @@
 project_id = "mdaovlmvferayybloyfn"
+
+[functions.create-template]
+verify_jwt = true

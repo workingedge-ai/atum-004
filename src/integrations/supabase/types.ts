@@ -14,13 +14,141 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          city: string
+          created_at: string
+          email: string
+          id: string
+          name: string
+          phone: string
+          total_commission: number | null
+          total_templates_created: number | null
+          updated_at: string
+          upi_id: string
+          user_id: string
+        }
+        Insert: {
+          city: string
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          phone: string
+          total_commission?: number | null
+          total_templates_created?: number | null
+          updated_at?: string
+          upi_id: string
+          user_id: string
+        }
+        Update: {
+          city?: string
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          phone?: string
+          total_commission?: number | null
+          total_templates_created?: number | null
+          updated_at?: string
+          upi_id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      sales_data: {
+        Row: {
+          affiliate_id: string
+          commission_amount: number
+          id: string
+          payment_status: string
+          sale_date: string
+          template_id: string
+        }
+        Insert: {
+          affiliate_id: string
+          commission_amount: number
+          id?: string
+          payment_status?: string
+          sale_date?: string
+          template_id: string
+        }
+        Update: {
+          affiliate_id?: string
+          commission_amount?: number
+          id?: string
+          payment_status?: string
+          sale_date?: string
+          template_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sales_data_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "sales_data_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "templates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      templates: {
+        Row: {
+          amount_paid: number
+          brand_logo_url: string | null
+          brand_name: string
+          created_at: string
+          google_review_url: string
+          id: string
+          owner_affiliate_id: string
+          payment_id: string | null
+          slug: string
+          status: string
+          template_type: string
+        }
+        Insert: {
+          amount_paid?: number
+          brand_logo_url?: string | null
+          brand_name: string
+          created_at?: string
+          google_review_url: string
+          id?: string
+          owner_affiliate_id: string
+          payment_id?: string | null
+          slug: string
+          status?: string
+          template_type: string
+        }
+        Update: {
+          amount_paid?: number
+          brand_logo_url?: string | null
+          brand_name?: string
+          created_at?: string
+          google_review_url?: string
+          id?: string
+          owner_affiliate_id?: string
+          payment_id?: string | null
+          slug?: string
+          status?: string
+          template_type?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_unique_slug: {
+        Args: { brand_name_input: string }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never

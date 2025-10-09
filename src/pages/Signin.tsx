@@ -6,9 +6,13 @@ import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const Signin = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -16,17 +20,85 @@ const Signin = () => {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // This will be replaced with actual authentication
-    navigate("/dashboard");
+    setIsLoading(true);
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password
+      });
+
+      if (error) throw error;
+
+      if (data.user) {
+        // Fetch user profile
+        const { data: profile, error: profileError } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('user_id', data.user.id)
+          .single();
+
+        if (profileError) {
+          console.error("Profile fetch error:", profileError);
+        } else if (profile) {
+          // Store in localStorage for quick access
+          localStorage.setItem("atumUser", JSON.stringify({
+            name: profile.name,
+            email: profile.email,
+            city: profile.city,
+            phone: profile.phone,
+            upiId: profile.upi_id
+          }));
+        }
+
+        toast({
+          title: "Welcome back!",
+          description: "You have successfully signed in",
+        });
+
+        navigate("/dashboard");
+      }
+
+    } catch (error: any) {
+      console.error("Signin error:", error);
+      toast({
+        title: "Error",
+        description: error.message || "Invalid email or password",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleForgotPassword = (e: React.FormEvent) => {
+  const handleForgotPassword = async (e: React.FormEvent) => {
     e.preventDefault();
-    // This will be replaced with actual password reset
-    alert("Password reset link sent to " + resetEmail);
-    setShowForgotPassword(false);
+    setIsLoading(true);
+
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
+        redirectTo: `${window.location.origin}/reset-password`
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Password reset link sent to " + resetEmail,
+      });
+
+      setShowForgotPassword(false);
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to send reset link",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,8 +172,9 @@ const Signin = () => {
                 type="submit"
                 className="w-full shadow-glow"
                 size="lg"
+                disabled={isLoading}
               >
-                Sign In
+                {isLoading ? "Signing In..." : "Sign In"}
               </Button>
             </form>
           ) : (
@@ -124,8 +197,9 @@ const Signin = () => {
                 type="submit"
                 className="w-full shadow-glow"
                 size="lg"
+                disabled={isLoading}
               >
-                Send Reset Link
+                {isLoading ? "Sending..." : "Send Reset Link"}
               </Button>
 
               <Button

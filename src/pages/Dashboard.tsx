@@ -7,14 +7,18 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Link, useNavigate } from "react-router-dom";
-import { DollarSign, Package, TrendingUp, LogOut, ExternalLink, FileText, ArrowUpDown } from "lucide-react";
+import { DollarSign, Package, TrendingUp, LogOut, ExternalLink, FileText, ArrowUpDown, Plus } from "lucide-react";
 import { useState, useEffect } from "react";
 import SupportWidget from "@/components/SupportWidget";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import atumLogo from "@/assets/atum-logo-new.png";
+import CreateTemplateModal from "@/components/CreateTemplateModal";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const userData = JSON.parse(localStorage.getItem("atumUser") || "{}");
   
   const [profileData, setProfileData] = useState({
@@ -25,14 +29,99 @@ const Dashboard = () => {
     upiId: userData.upiId || ""
   });
 
-  const handleLogout = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTemplate, setSelectedTemplate] = useState("");
+  const [statsData, setStatsData] = useState({
+    totalEarnings: 0,
+    totalSales: 0,
+    pendingPayouts: 0,
+    templatesCreated: 0
+  });
+  const [userTemplates, setUserTemplates] = useState([]);
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+
+  const fetchDashboardData = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        // User not logged in, use localStorage for demo
+        return;
+      }
+
+      // Fetch user profile with stats
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('total_templates_created, total_commission')
+        .eq('user_id', session.user.id)
+        .single();
+
+      if (profileError) throw profileError;
+
+      // Fetch sales data
+      const { data: sales, error: salesError } = await supabase
+        .from('sales_data')
+        .select('commission_amount, payment_status')
+        .eq('affiliate_id', session.user.id);
+
+      if (salesError) throw salesError;
+
+      // Fetch user templates
+      const { data: templates, error: templatesError } = await supabase
+        .from('templates')
+        .select('*')
+        .eq('owner_affiliate_id', session.user.id);
+
+      if (templatesError) throw templatesError;
+
+      // Calculate stats
+      const totalEarnings = sales
+        .filter(s => s.payment_status === 'pending' || s.payment_status === 'paid')
+        .reduce((sum, s) => sum + parseFloat(s.commission_amount.toString()), 0);
+      
+      const pendingPayouts = sales
+        .filter(s => s.payment_status === 'pending')
+        .reduce((sum, s) => sum + parseFloat(s.commission_amount.toString()), 0);
+
+      setStatsData({
+        totalEarnings: totalEarnings,
+        totalSales: sales.length,
+        pendingPayouts: pendingPayouts,
+        templatesCreated: profile?.total_templates_created || 0
+      });
+
+      setUserTemplates(templates || []);
+
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error);
+      // Continue with demo data
+    }
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     localStorage.removeItem("atumUser");
     navigate("/");
   };
 
   const handleProfileSave = () => {
     localStorage.setItem("atumUser", JSON.stringify(profileData));
-    alert("Profile updated successfully!");
+    toast({
+      title: "Success",
+      description: "Profile updated successfully!",
+    });
+  };
+
+  const handleCreateTemplate = (templateType: string) => {
+    setSelectedTemplate(templateType);
+    setIsModalOpen(true);
+  };
+
+  const handleTemplateCreated = () => {
+    fetchDashboardData();
   };
 
   const templates = [
@@ -218,7 +307,7 @@ const Dashboard = () => {
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Total Earnings</p>
                     <p className="text-3xl font-bold text-primary">
-                      <AnimatedCounter end={1300} prefix="₹" duration={2000} />
+                      <AnimatedCounter end={statsData.totalEarnings} prefix="₹" duration={2000} />
                     </p>
                   </div>
                   <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
@@ -237,7 +326,7 @@ const Dashboard = () => {
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Total Sales</p>
                     <p className="text-3xl font-bold text-primary">
-                      <AnimatedCounter end={3} duration={1500} />
+                      <AnimatedCounter end={statsData.totalSales} duration={1500} />
                     </p>
                   </div>
                   <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
@@ -256,7 +345,7 @@ const Dashboard = () => {
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Pending Payouts</p>
                     <p className="text-3xl font-bold text-primary">
-                      <AnimatedCounter end={600} prefix="₹" duration={2000} />
+                      <AnimatedCounter end={statsData.pendingPayouts} prefix="₹" duration={2000} />
                     </p>
                   </div>
                   <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
@@ -284,10 +373,10 @@ const Dashboard = () => {
             <Card className="gradient-card shadow-card p-6 border-border">
               <h3 className="text-xl font-semibold mb-4">Quick Summary</h3>
               <div className="space-y-3 text-muted-foreground">
-                <p>• You've made <span className="font-semibold text-primary">3 sales</span> this month</p>
-                <p>• Total commission earned: <span className="font-semibold text-primary">₹1,300</span></p>
-                <p>• Pending commission: <span className="font-semibold text-primary">₹600</span></p>
-                <p>• Available templates: <span className="font-semibold text-primary">{templates.length}</span></p>
+                <p>• You've made <span className="font-semibold text-primary">{statsData.totalSales} sales</span> this month</p>
+                <p>• Total commission earned: <span className="font-semibold text-primary">₹{statsData.totalEarnings.toFixed(2)}</span></p>
+                <p>• Pending commission: <span className="font-semibold text-primary">₹{statsData.pendingPayouts.toFixed(2)}</span></p>
+                <p>• Templates created: <span className="font-semibold text-primary">{statsData.templatesCreated}</span></p>
               </div>
             </Card>
           </TabsContent>
@@ -346,10 +435,10 @@ const Dashboard = () => {
                       <Button 
                         size="sm" 
                         className="flex-1 shadow-glow text-xs md:text-sm"
-                        onClick={() => navigate(`/template/${template.id}`)}
+                        onClick={() => handleCreateTemplate(template.name)}
                       >
-                        <FileText className="h-3 w-3 md:h-4 md:w-4 mr-1" />
-                        Details
+                        <Plus className="h-3 w-3 md:h-4 md:w-4 mr-1" />
+                        Create Page
                       </Button>
                     </div>
                   </div>
@@ -621,6 +710,15 @@ const Dashboard = () => {
           </TabsContent>
         </Tabs>
       </main>
+
+      <CreateTemplateModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        templateType={selectedTemplate}
+        onSuccess={handleTemplateCreated}
+      />
+
+      <SupportWidget />
     </div>
   );
 };

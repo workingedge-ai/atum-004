@@ -37,15 +37,55 @@ const Signup = () => {
     setIsLoading(true);
 
     try {
-      // TODO: Add validation checks when profiles table is created
-      // For now, store user data temporarily
+      // Create auth user
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.phone, // Using phone as password for now - you can add a password field
+        options: {
+          emailRedirectTo: `${window.location.origin}/dashboard`,
+          data: {
+            name: formData.name,
+            city: formData.city,
+            phone: formData.phone,
+          }
+        }
+      });
+
+      if (authError) throw authError;
+
+      if (!authData.user) {
+        throw new Error("Failed to create user account");
+      }
+
+      // Create profile record
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .insert({
+          user_id: authData.user.id,
+          name: formData.name,
+          email: formData.email,
+          city: formData.city,
+          phone: formData.phone,
+          upi_id: formData.upiId
+        });
+
+      if (profileError) throw profileError;
+
+      // Store user data in localStorage for quick access
       localStorage.setItem("atumUser", JSON.stringify(formData));
-      navigate("/walkthrough");
-    } catch (error) {
+
+      toast({
+        title: "Success!",
+        description: "Your account has been created successfully",
+      });
+
+      navigate("/dashboard");
+
+    } catch (error: any) {
       console.error("Signup error:", error);
       toast({
         title: "Error",
-        description: "An error occurred during signup. Please try again.",
+        description: error.message || "An error occurred during signup. Please try again.",
         variant: "destructive"
       });
     } finally {

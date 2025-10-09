@@ -12,10 +12,8 @@ import { useState, useEffect } from "react";
 import SupportWidget from "@/components/SupportWidget";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import atumLogo from "@/assets/atum-logo-new.png";
-import { useMouseTrail } from "@/hooks/useMouseTrail";
 
 const Dashboard = () => {
-  useMouseTrail();
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem("atumUser") || "{}");
   

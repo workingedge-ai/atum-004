@@ -6,10 +6,8 @@ import { ArrowRight, CheckCircle, DollarSign, Package, Users } from "lucide-reac
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import atumLogo from "@/assets/atum-logo-new.png";
-import { useMouseTrail } from "@/hooks/useMouseTrail";
 
 const Index = () => {
-  useMouseTrail();
   
   const [mousePosition, setMousePosition] = useState({ 
     x: typeof window !== 'undefined' ? window.innerWidth / 2 : 0, 
